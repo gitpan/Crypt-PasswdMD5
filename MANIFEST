@@ -3,3 +3,4 @@ Makefile.PL
 PasswdMD5.pm
 README
 t/basic.t
+META.yml                                 Module meta-data (added by MakeMaker)
