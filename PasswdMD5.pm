@@ -19,11 +19,12 @@
 #                         for use in .htpasswd files
 # 20001006 wrowe@lnd.com: Requested apache_md5_crypt to be
 #			  exported by default.
+# 20010706 lem@cantv.net: Use Digest::MD5 instead of the (obsolete) MD5.
 #
 ################
 
 package Crypt::PasswdMD5;
-$VERSION='1.1';
+$VERSION='1.2';
 require 5.000;
 require Exporter;
 @ISA = qw(Exporter);
@@ -61,7 +62,7 @@ exported by default.
 $Magic = '$1$';			# Magic string
 $itoa64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-use MD5;
+use Digest::MD5;
 
 sub to64 {
     my ($v, $n) = @_;
@@ -90,12 +91,12 @@ sub unix_md5_crypt {
     $salt =~ s/^(.*)\$.*$/$1/;	# Salt can have up to 8 chars...
     $salt = substr($salt, 0, 8);
 
-    $ctx = new MD5;		# Here we start the calculation
+    $ctx = new Digest::MD5;		# Here we start the calculation
     $ctx->add($pw);		# Original password...
     $ctx->add($Magic);		# ...our magic string...
     $ctx->add($salt);		# ...the salt...
 
-    my ($final) = new MD5;
+    my ($final) = new Digest::MD5;
     $final->add($pw);
     $final->add($salt);
     $final->add($pw);
@@ -121,7 +122,7 @@ sub unix_md5_crypt {
 				# it'll be *really* slow!
 
     for ($i = 0; $i < 1000; $i++) {
-	$ctx1 = new MD5;
+	$ctx1 = new Digest::MD5;
 	if ($i & 1) { $ctx1->add($pw); }
 	else { $ctx1->add(substr($final, 0, 16)); }
 	if ($i % 3) { $ctx1->add($salt); }
