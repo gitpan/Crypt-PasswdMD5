@@ -17,15 +17,17 @@
 # 19980710 lem@cantv.net: Initial release
 # 19990402 bryan@eai.com: Added apache_md5_crypt to create a valid hash
 #                         for use in .htpasswd files
+# 20001006 wrowe@lnd.com: Requested apache_md5_crypt to be
+#			  exported by default.
 #
 ################
 
 package Crypt::PasswdMD5;
-$VERSION='1.0';
+$VERSION='1.1';
 require 5.000;
 require Exporter;
 @ISA = qw(Exporter);
-@EXPORT = qw(unix_md5_crypt);
+@EXPORT = qw(unix_md5_crypt apache_md5_crypt);
 
 =head1 NAME
 
@@ -51,6 +53,8 @@ contains the following license in it:
 
 C<apache_md5_crypt()> provides a function compatible with Apache's
 C<.htpasswd> files. This was contributed by Bryan Hart <bryan@eai.com>.
+As suggested by William A. Rowe, Jr. <wrowe@lnd.com>, it is 
+exported by default.
 
 =cut
 
