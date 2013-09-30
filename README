@@ -1,80 +1,49 @@
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
+README file for Crypt::PasswdMD5.
 
+See also: CHANGES and Changelog.ini.
 
-Crypt::PasswdMD5
-================
+Warning: WinZip 8.1 and 9.0 both contain an 'accidental' bug which stops
+them recognizing POSIX-style directory structures in valid tar files.
+You are better off using a reliable tool such as InfoZip:
+ftp://ftp.info-zip.org/pub/infozip/
 
-This  code  provides  various  crypt()-compatible  interfaces  to  the
-MD5-based crypt() function found in  various *nixes. It's based on the
-implementation  found  on FreeBSD  2.2.[56]-RELEASE  and contains  the
-following license in it:
+1 Installing from a Unix-like distro
+------------------------------------
+shell>gunzip Crypt-PasswdMD5-1.40.tgz
+shell>tar mxvf Crypt-PasswdMD5-1.40.tar
 
-"THE BEER-WARE LICENSE" (Revision 42):
-<phk@login.dknet.dk>  wrote this  file.  As  long as  you  retain this
-notice you can  do whatever you want with this stuff.  If we meet some
-day, and you  think this stuff is worth  it, you can buy me  a beer in
-return.  Poul-Henning Kamp
+On Unix-like systems, assuming you have installed Module::Build V 0.25+:
 
-To install, follow the standard CPAN recipe of:
+shell>perl Build.PL
+shell>./Build
+shell>./Build test
+shell>./Build install
 
-$ perl Makefile.PL
-$ make
-$ make test
+On MS Windows-like systems, assuming you have installed Module::Build V 0.25+:
 
-If all tests pass, then do
+shell>perl Build.PL
+shell>perl Build
+shell>perl Build test
+shell>perl Build install
 
-$ make install
+Alternately, without Module::Build, you do this:
 
-You can see the documentation by issuing the following command at a
-nearby shell
+Note: 'make' on MS Windows-like systems may be called 'nmake' or 'dmake'.
 
-$ perldoc Crypt::PasswdMD5
+shell>perl Makefile.PL
+shell>make
+shell>make test
+shell>su              (for Unix-like systems)
+shell>make install
+shell>exit            (for Unix-like systems)
 
-Bug  reports  are  welcome. Please  do  not  forget  to tell  me  what
-version/platform are you running this code on. Providing a small piece
-of  code that  shows the  bug helps  me a  lot in  sorting it  out and
-possibly in writting more tests for the distribution.
+On all systems:
 
-Report your bugs to me (luismunoz@cpan.org).
+Run PasswdMD5.pm through your favourite pod2html translator.
 
-SECURITY CONSIDERATIONS
-
-I  have  no control  on  the machanisms  involved  in  the storage  or
-transport  of this distribution.  This means  that I  cannot guarantee
-that  the distribution  you have  in your  hands is  indeed,  the same
-distribution I packed and uploaded.
-
-Along the distribution file, you should have a file with the extension
-".asc".   This  contains a  GPG  "detached  signature"  that makes  it
-impossible for anybody to alter  this distribution.  If security is of
-any concern to you, by all means verify the signature of this file and
-contact the author if any discrepancy is detected.
-
-You can find more information about this at the following URL
-
-             http://mipagina.cantv.net/lem/gpg/
-
-This  information includes  the correct  keys,  fingerprints, etc.Note
-that this README file should also be signed.
-
-LICENSE AND WARRANTY
-
-This software is (c) Luis E. Muñoz.  It can be used under the terms of
-the perl artistic license provided  that proper credit for the work of
-the  author is  preserved in  the form  of this  copyright  notice and
-license for this module.
-
-No warranty of any kind is  expressed or implied. This code might make
-your computer go up in a puff of black smoke.
-
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.1 (Darwin)
-
-iD8DBQFAMfZ75w8l7DtKgo8RAl9UAJwJGs/TzD73jx2rcutD30KXHOJQ9ACdFE3Q
-ZqgVAcK1TfgVsmoxw6RJCaE=
-=ND10
------END PGP SIGNATURE-----
-
-$Id: README,v 1.2 2004/02/17 11:10:43 lem Exp $
+2 Installing from an ActiveState distro
+---------------------------------------
+shell>unzip Crypt-PasswdMD5-1.40.zip
+shell>ppm install --location=. Crypt-PasswdMD5
+shell>del Crypt-PasswdMD5-1.40.ppd
+shell>del PPM-Crypt-PasswdMD5-1.40.tar.gz

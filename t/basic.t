@@ -1,68 +1,38 @@
-#
-# Basic testing of the hashing function
-#
+use strict;
+use warnings;
 
-use Crypt::PasswdMD5;
+use Test::More;
 
-$phrase1 = "hello world\n";
-$stage1 = '$1$1234$BhY1eAOOs7IED4HLA5T5o.';
+# ------------------------------------------------
+
+use_ok('Crypt::PasswdMD5');
+
+my($phrase1) = "hello world\n";
+my($stage1)  = '$1$1234$BhY1eAOOs7IED4HLA5T5o.';
 
 $|=1;
 
-print "1..6\n";
+ok(unix_md5_crypt($phrase1, '1234') eq $stage1, 'Hashing of a simple phrase + salt');
 
-# Hashing of a simple phrase + salt
-if (unix_md5_crypt($phrase1, "1234") eq $stage1) {
-	print "ok 1\n";
-}
-else {
-	print "not ok 1\n";
-}
+ok(unix_md5_crypt($phrase1, $stage1) eq $stage1, 'Rehash (check) of the phrase');
 
-# Rehash (check) of the phrase
-if (unix_md5_crypt($phrase1, $stage1) eq $stage1) {
-	print "ok 2\n";
-}
-else {
-	print "not ok 2\n";
-}
 
-# Hashing/rehashing of the empty password
-$t = unix_md5_crypt('', $$);
-if (unix_md5_crypt('', $t) eq $t) {
-	print "ok 3\n";
-}
-else
-{	
-	print "not ok 3\n";
-}
+my($t) = unix_md5_crypt('', $$);
 
-# Make sure null salt works
-$t = unix_md5_crypt('test4');
+ok(unix_md5_crypt('', $t) eq $t, 'Hashing/rehashing of the empty password');
+
+$t        = unix_md5_crypt('test4');
+my($salt) = ($t =~ m/\$.+\$(.+)\$/);
+
+ok(unix_md5_crypt('test4', $salt) eq $t, 'Make sure null salt works');
+
+# Warning: Do not remove the () around ($salt).
+
+$t      = apache_md5_crypt('test5');
 ($salt) = ($t =~ m/\$.+\$(.+)\$/);
-if (unix_md5_crypt('test4',$salt) eq $t) {
-	print "ok 4\n";
-}
-else
-{
-	print "not ok 4\n";
-}
-  
-# and again with the Apache Variant
-$t = apache_md5_crypt('test5');
-($salt) = ($t =~ m/\$.+\$(.+)\$/);
-if (apache_md5_crypt('test5',$salt) eq $t) {
-        print "ok 5\n";
-}
-else
-{
-        print "not ok 5\n";
-}
-  
-if ( $t =~ /^\$apr1\$/ ) {
-        print "ok 6\n";
-}
-else
-{
-        print "not ok 6\n";
-}
+
+ok(apache_md5_crypt('test5', $salt) eq $t, 'And again with the Apache Variant');
+
+ok($t =~ /^\$apr1\$/, '$t now has the correct value');
+
+done_testing;

@@ -1,27 +1,45 @@
+use strict;
+use warnings;
+
 use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-# $Id: Makefile.PL,v 1.2 2004/02/17 11:20:45 lem Exp $
+use strict;
+use warnings;
 
-print <<EOF;
-======================================================================
-			       WARNING
-======================================================================
+use ExtUtils::MakeMaker;
 
-Due to  the nature of this  Perl package, I strongly  suggest that its
-signature be properly verified using GPG.
+# See lib/ExtUtils/MakeMaker.pm for details of how to influence
+# the contents of the Makefile that is written.
 
-EOF
-    ;
-
-WriteMakefile(
-    'NAME'		=> 'Crypt::PasswdMD5',
-    'VERSION_FROM'	=> 'PasswdMD5.pm',
-    'LIBS'		=> [''],
-    'INC'		=> '',
-	      ($] >= 5.005 ? 
-	       (ABSTRACT_FROM	=> 'PasswdMD5.pm',
-		AUTHOR     	=> 'Luis E. Muñoz <luismunoz@cpan.org>') : ()),
+WriteMakefile
+(
+	($] ge '5.005') ?
+	(
+	 AUTHOR   => 'Luis E. Muñoz <luismunoz@cpan.org>',
+	 ABSTRACT => 'Provide interoperable MD5-based crypt() functions',
+	   ) : (),
+	clean =>
+	{
+		FILES => 'blib/* Makefile MANIFEST Crypt-PasswdMD5-*'
+	},
+	dist =>
+	{
+		COMPRESS => 'gzip',
+		SUFFIX   => 'gz'
+	},
+	DISTNAME  => 'Crypt-PasswdMD5',
+	NAME      => 'Crypt::PasswdMD5',
+	LICENSE   => 'perl',
+	PL_FILES  => {},
+	PREREQ_PM =>
+	{
+		'Digest::MD5' => 2.53,
+		'strict'      => 0,
+		'Test::More'  => 0.94,
+#		'Test::Pod'   => 1.45, # Make it optional. See t/pod.t
+		'warnings'    => 0,
+	},
+	VERSION_FROM => 'lib/Crypt/PasswdMD5.pm',
 );
-

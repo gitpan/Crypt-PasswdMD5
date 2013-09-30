@@ -1,6 +1,12 @@
-MANIFEST
+Build.PL
+Changelog.ini
+Changes
+lib/Crypt/PasswdMD5.pm
 Makefile.PL
-PasswdMD5.pm
+MANIFEST			This list of files
+META.json
+META.yml
 README
 t/basic.t
-META.yml                                 Module meta-data (added by MakeMaker)
+t/random.salt.t
+xt/author/pod.t
